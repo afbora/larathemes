@@ -1,7 +1,7 @@
 {
     "name": "afbora/larathemes",
     "description": "Laravel 5 Themes",
-    "keywords": ["themes", "laravel" "blade"],
+    "keywords": ["themes", "laravel", "blade"],
     "license": "MIT",
     "authors": [
         {
