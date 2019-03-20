@@ -6,7 +6,7 @@ Themes gives the means to group together a set of views and assets for Laravel. 
 Simply install the package through Composer. From here the package will automatically register its service provider and `Theme` facade.
 
 ```
-composer require afbora/themes
+composer require afbora/larathemes
 ```
 
 ## Changelog

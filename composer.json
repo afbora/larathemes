@@ -1,0 +1,34 @@
+{
+    "name": "afbora/larathemes",
+    "description": "Laravel 5 Themes",
+    "keywords": ["themes", "laravel" "blade"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ahmet Bora",
+            "email": "byybora@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1.3",
+        "illuminate/support": "5.7.*|5.8.*"
+    },
+    "autoload": {
+        "files": [
+            "helpers/themes.php"
+        ],
+        "psr-4": {
+            "Afbora\\LaraThemes\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Afbora\\LaraThemes\\ThemesServiceProvider"
+            ],
+            "aliases": {
+                "Theme": "Afbora\\LaraThemes\\Facades\\Theme"
+            }
+        }
+    }
+}

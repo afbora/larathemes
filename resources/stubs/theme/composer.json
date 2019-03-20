@@ -1,0 +1,13 @@
+{
+    "name": "DummyPackageName",
+    "description": "DummyDescription",
+    "type": "caffeinated-theme",
+    "autoload": {
+        "psr-4": {
+            "DummyEscapedNamespace\\": "src/"
+        }
+    },
+    "require": {
+        "caffeinated/composer": "*"
+    }
+}
