@@ -2,8 +2,9 @@
 
 namespace Afbora\LaraThemes\Console;
 
-use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class GenerateTheme extends Command
 {
@@ -39,30 +40,26 @@ class GenerateTheme extends Command
     public function handle()
     {
         $options     = $this->getOptions();
-        $root = base_path('themes');
+        $root        = base_path('themes');
         $stubsPath   = __DIR__ . '/../../resources/stubs/theme';
         $slug        = $options['slug'];
         $name        = $this->format($slug);
 
-        if(File::isDirectory($root . '/' . $name))
-        {
+        if (File::isDirectory($root . '/' . $name)) {
             return $this->error('Theme already exists!');
         }
 
-        if(!File::isDirectory($root)) 
-        {
+        if (! File::isDirectory($root)) {
             File::makeDirectory($root);
         }
 
-        foreach(File::allFiles($stubsPath) as $file) 
-        {
+        foreach (File::allFiles($stubsPath) as $file) {
             $contents = $this->replacePlaceholders($file->getContents(), $options);
             $subPath  = $file->getRelativePathname();
             $filePath = $root.'/'.$options['name'].'/'.$subPath;
             $dir      = dirname($filePath);
 
-            if(!File::isDirectory($dir)) 
-            {
+            if (! File::isDirectory($dir)) {
                 File::makeDirectory($dir, 0755, true);
             }
 
@@ -77,7 +74,7 @@ class GenerateTheme extends Command
      */
     protected function getOptions()
     {
-        $slug   = str_slug($this->argument('slug'));
+        $slug   = Str::slug($this->argument('slug'));
         $name   = $this->format($slug);
         $quick  = $this->option('quick');
         $vendor = config('themes.vendor');
@@ -131,12 +128,12 @@ class GenerateTheme extends Command
 
     /**
      * Format the given name as the directory basename.
-     * 
+     *
      * @param  string  $name
      * @return string
      */
     private function format($name)
     {
-        return ucfirst(camel_case($name));
+        return ucfirst(Str::camel($name));
     }
 }

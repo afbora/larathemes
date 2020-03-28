@@ -1,4 +1,8 @@
-# Laravel 5 Themes
+# Laravel Themes
+[![Source](https://img.shields.io/badge/source-afbora/larathemes-blue.svg?style=flat-square)](https://github.com/afbora/larathemes)
+[![Latest Stable Version](https://poser.pugx.org/afbora/larathemes/v/stable?format=flat-square)](https://packagist.org/packages/afbora/larathemes)
+[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://tldrlegal.com/license/mit-license)
+[![Total Downloads](https://img.shields.io/packagist/dt/afbora/larathemes.svg?style=flat-square)](https://packagist.org/packages/afbora/larathemes)
 
 Themes gives the means to group together a set of views and assets for Laravel. This gives an easy way to further decouple the way your web application looks from your code base.
 

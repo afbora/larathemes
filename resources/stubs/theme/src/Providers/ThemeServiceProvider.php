@@ -2,7 +2,7 @@
 
 namespace DummyNamespace\Providers;
 
-use Caffeinated\Themes\Support\ServiceProvider;
+use Afbora\LaraThemes\Support\ServiceProvider;
 
 class ThemeServiceProvider extends ServiceProvider
 {

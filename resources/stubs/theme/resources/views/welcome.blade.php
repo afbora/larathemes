@@ -85,8 +85,8 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://caffeinatedpackages.com">Documentation</a>
-                    <a href="https://github.com/caffeinated/themes">GitHub</a>
+                    <a href="https://github.com/afbora/larathemes">Documentation</a>
+                    <a href="https://github.com/afbora/larathemes">GitHub</a>
                 </div>
             </div>
         </div>

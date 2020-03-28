@@ -2,6 +2,8 @@
 
 namespace Afbora\LaraThemes\Concerns;
 
+use Illuminate\Support\Str;
+
 trait RegistersViewLocations
 {
     /**
@@ -15,8 +17,7 @@ trait RegistersViewLocations
         $theme  = $this->where('slug', $theme)->first();
         $parent = null;
 
-        if($theme->has('parent')) 
-        {
+        if ($theme->has('parent')) {
             $parent = $this->where('slug', $theme->get('parent'))->first();
         }
 
@@ -35,8 +36,7 @@ trait RegistersViewLocations
 
         app('view.finder')->removeLocation($currentLocation);
 
-        if($current->has('parent')) 
-        {
+        if ($current->has('parent')) {
             $parent         = $this->where('slug', $current->get('parent'))->first();
             $parentLocation = $this->path('resources/views', $parent->slug);
             app('view.finder')->removeLocation($parentLocation);
@@ -51,8 +51,7 @@ trait RegistersViewLocations
      */
     protected function addRegisteredLocation($theme, $parent)
     {
-        if(!is_null($parent)) 
-        {
+        if (! is_null($parent)) {
             $parentLocation = $this->path('resources/views');
             app('view.finder')->prependLocation($parentLocation);
         }
@@ -63,12 +62,12 @@ trait RegistersViewLocations
 
     /**
      * Format the name of the theme name to reference the correct directory.
-     * 
+     *
      * @param  string  $name
      * @return string
      */
     protected function format($name)
     {
-        return ucfirst(camel_case($name));
+        return ucfirst(Str::camel($name));
     }
 }

@@ -14,7 +14,7 @@ class ServiceProvider extends IlluminateServiceProvider
     {
         $slug = $this->getManifest()['slug'];
 
-        if(Theme::getCurrent() === $slug) {
+        if (Theme::getCurrent() === $slug) {
             $this->loadTranslationsFrom(Theme::path('resources/lang'), 'theme');
             $this->loadViewsFrom(Theme::path('resources/views'), 'theme');
         }

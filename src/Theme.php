@@ -2,6 +2,7 @@
 
 namespace Afbora\LaraThemes;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Afbora\LaraThemes\Concerns\RegistersViewLocations;
 
@@ -28,13 +29,12 @@ class Theme extends Collection
     {
         list($theme, $parent) = $this->resolveTheme($theme);
 
-        if(!$this->isCurrently($theme->get('slug')) and (!is_null($this->getCurrent()))) 
-        {
+        if (! $this->isCurrently($theme->get('slug')) and (! is_null($this->getCurrent()))) {
             $this->removeRegisteredLocation();
         }
 
         $this->setCurrent($theme->get('slug'));
-        
+
         $this->registerAutoload($this->format($theme->get('slug')));
         $this->addRegisteredLocation($theme, $parent);
         $this->symlinkPublicDirectory();
@@ -50,8 +50,7 @@ class Theme extends Collection
      */
     public function path($file = '', $theme = null)
     {
-        if(is_null($theme)) 
-        {
+        if (is_null($theme)) {
             $theme = $this->getCurrent();
         }
 
@@ -112,27 +111,25 @@ class Theme extends Collection
 
     /**
      * Format the given name as the directory basename.
-     * 
+     *
      * @param  string  $name
      * @return string
      */
     protected function format($name)
     {
-        return ucfirst(camel_case($name));
+        return ucfirst(Str::camel($name));
     }
 
     /**
      * Symlink the themes public directory so its accesible
      * by the web.
-     * 
+     *
      * @return void
      */
     protected function symlinkPublicDirectory()
     {
-        if(!file_exists(public_path('themes/'.$this->getCurrent()))) 
-        {
-            if(!file_exists(public_path('themes'))) 
-            {
+        if (! file_exists(public_path('themes/'.$this->getCurrent()))) {
+            if (! file_exists(public_path('themes'))) {
                 app()->make('files')->makeDirectory(public_path('themes'));
             }
 
@@ -144,7 +141,7 @@ class Theme extends Collection
 
     /**
      * Register the theme's service provider.
-     * 
+     *
      * @param  string  $theme
      * @return void
      */
@@ -155,20 +152,23 @@ class Theme extends Collection
 
     /**
      * Register the themes path as a PSR-4 reference.
-     * 
+     *
      * @param  string  $theme
      * @return void
      */
     protected function registerAutoload($theme)
 	{
-        $composer = require(base_path('vendor/autoload.php'));
-        
-        $class = 'Themes\\'.$theme.'\\';
-        $path  = $this->path('src/');
+        $base = 'Themes\\'.$theme.'\\';
+        $path = $this->path('src/');
 
-        if(!array_key_exists($class, $composer->getClassMap())) 
-        {
-            $composer->addPsr4($class, $path);
-        }
+        spl_autoload_register(function($class) use ($base, $path) {
+            $file = str_replace($base, '', $class);
+            $file = str_replace('\\', '/', $file);
+            $file .= '.php';
+
+            if (file_exists($path.$file)) {
+                include($path.$file);
+            }
+        });
 	}
 }

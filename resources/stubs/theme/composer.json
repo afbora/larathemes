@@ -1,13 +1,13 @@
 {
     "name": "DummyPackageName",
     "description": "DummyDescription",
-    "type": "caffeinated-theme",
+    "type": "afbora-theme",
     "autoload": {
         "psr-4": {
             "DummyEscapedNamespace\\": "src/"
         }
     },
     "require": {
-        "caffeinated/composer": "*"
+        "afbora/composer": "*"
     }
 }

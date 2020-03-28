@@ -3,7 +3,7 @@
 namespace DummyNamespace\Providers;
 
 use Illuminate\Support\Facades\Route;
-use Caffeinated\Themes\Support\RouteServiceProvider as ServiceProvider;
+use Afbora\LaraThemes\Support\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
 {

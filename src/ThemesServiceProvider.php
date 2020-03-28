@@ -39,7 +39,7 @@ class ThemesServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
 		    __DIR__.'/../config/themes.php', 'themes'
 		);
-		
+
 		$this->registerServices();
 		$this->registerNamespaces();
 
@@ -63,21 +63,17 @@ class ThemesServiceProvider extends ServiceProvider
 	 */
 	protected function registerServices()
 	{
-		$this->app->singleton('afbora.larathemes', function($app) 
-        {
+		$this->app->singleton('afbora.larathemes', function($app) {
             $themes = [];
             $items  = [];
 
-            if($path = base_path('themes')) 
-            {
-                if(file_exists($path) && is_dir($path)) 
-                {
+            if ($path = base_path('themes')) {
+                if (file_exists($path) && is_dir($path)) {
                     $themes = $this->app['files']->directories($path);
                 }
 			}
-			
-            foreach($themes as $theme) 
-            {
+
+            foreach ($themes as $theme) {
                 $manifest = new Manifest($theme.'/theme.json');
                 $items[]  = collect($manifest->all());
             }
@@ -85,8 +81,7 @@ class ThemesServiceProvider extends ServiceProvider
             return new Theme($items);
 		});
 
-        $this->app->singleton('view.finder', function($app) 
-        {
+        $this->app->singleton('view.finder', function($app) {
             return new ThemeViewFinder($app['files'], $app['config']['view.paths'], null);
 		});
 	}
@@ -98,8 +93,7 @@ class ThemesServiceProvider extends ServiceProvider
     {
         $themes = app('afbora.larathemes')->all();
 
-        foreach($themes as $theme) 
-        {
+        foreach ($themes as $theme) {
             $namespace = $theme->get('slug');
 			$hint      = app('afbora.larathemes')->path('resources/views', $theme->get('slug'));
 

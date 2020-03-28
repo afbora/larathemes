@@ -11,12 +11,12 @@ class Manifest extends Collection
      * @var string
      */
     protected $path;
-    
+
     /**
      * @var string
      */
     protected $content;
-    
+
     /**
      * Create a new Manifest.
      *
@@ -24,17 +24,16 @@ class Manifest extends Collection
      */
     public function __construct($path = null)
     {
-        if(is_null($path)) 
-        {
+        if (is_null($path)) {
             throw Exception('Please specify a path to your manifest file.');
         }
-        
+
         $this->setPath($path);
         $this->load();
-        
+
         parent::__construct($this->decode());
     }
-    
+
     /**
      * Make a new manifest collection based on the passed file path.
      *
@@ -45,32 +44,33 @@ class Manifest extends Collection
     {
         return new static($path);
     }
-    
+
     /**
      * Load the manifest file content.
      */
     public function load()
     {
-        if(file_exists($this->getPath())) 
-        {
-            $this->setContent(file_get_contents($this->getPath()));            
+        if (file_exists($this->getPath())) {
+            $this->setContent(file_get_contents($this->getPath()));
+
             return;
         }
     }
-    
+
     /**
      * Save the manifest file content.
      */
     public function save()
     {
-        if(file_exists($this->getPath())) 
-        {
-            $this->setContent($this->encode());            
-            file_put_contents($this->getPath(), $this->getContent());            
+        if (file_exists($this->getPath())) {
+            $this->setContent($this->encode());
+
+            file_put_contents($this->getPath(), $this->getContent());
+
             return;
         }
     }
-    
+
     /**
      * Decode the manifest content.
      *
@@ -80,7 +80,7 @@ class Manifest extends Collection
     {
         return json_decode($this->getContent(), true);
     }
-    
+
     /**
      * Encode the manifest items.
      *
@@ -90,7 +90,7 @@ class Manifest extends Collection
     {
         return json_encode($this->items);
     }
-    
+
     /**
      * Set the manifest file path property.
      *
@@ -100,7 +100,7 @@ class Manifest extends Collection
     {
         $this->path = $path;
     }
-    
+
     /**
      * Get the manifest file path property.
      *
@@ -110,7 +110,7 @@ class Manifest extends Collection
     {
         return $this->path;
     }
-    
+
     /**
      * Set the manifest content property.
      *
@@ -120,7 +120,7 @@ class Manifest extends Collection
     {
         $this->content = $content;
     }
-    
+
     /**
      * Get the manifest content property.
      *
