@@ -1,8 +1,10 @@
 # Laravel Themes
-[![Source](https://img.shields.io/badge/source-afbora/larathemes-blue.svg?style=flat-square)](https://github.com/afbora/larathemes)
-[![Latest Stable Version](https://poser.pugx.org/afbora/larathemes/v/stable?format=flat-square)](https://packagist.org/packages/afbora/larathemes)
-[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://tldrlegal.com/license/mit-license)
-[![Total Downloads](https://img.shields.io/packagist/dt/afbora/larathemes.svg?style=flat-square)](https://packagist.org/packages/afbora/larathemes)
+[![Source](https://img.shields.io/badge/source-afbora/larathemes-blue?style=flat-square)](https://github.com/afbora/larathemes)
+[![Download](https://img.shields.io/packagist/dt/afbora/larathemes?style=flat-square)](https://github.com/afbora/larathemes)
+[![Open Issues](https://img.shields.io/github/issues-raw/afbora/larathemes?style=flat-square)](https://github.com/afbora/larathemes)
+[![Last Commit](https://img.shields.io/github/last-commit/afbora/larathemes?style=flat-square)](https://github.com/afbora/larathemes)
+[![Release](https://img.shields.io/github/v/release/afbora/larathemes?style=flat-square)](https://github.com/afbora/larathemes)
+[![License](https://img.shields.io/github/license/afbora/larathemes?style=flat-square)](https://github.com/afbora/larathemes)
 
 Themes gives the means to group together a set of views and assets for Laravel. This gives an easy way to further decouple the way your web application looks from your code base.
 
@@ -11,6 +13,13 @@ Simply install the package through Composer. From here the package will automati
 
 ```
 composer require afbora/larathemes
+```
+
+## Config
+To publish the config file, run the following:
+
+```
+php artisan vendor:publish --provider="Afbora\LaraThemes\ThemesServiceProvider" --tag="config"
 ```
 
 ## Changelog
