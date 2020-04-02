@@ -4,6 +4,14 @@ All notable changes to this package will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this package adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.2] - 2020-04-02
+### Fixed
+- Error pages (`errors/404.blade.php`) can now properly be overridden by your themes
+
+## [1.1.1] - 2020-03-28
+### Changed
+- Readme updated with new badges and config command
+
 ## [1.1.0] - 2020-03-28
 ### Added
 - Laravel 7 support
