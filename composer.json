@@ -1,8 +1,14 @@
 {
     "name": "afbora/larathemes",
     "description": "Theme package for Laravel 6+",
-    "keywords": ["themes", "laravel", "blade", "theme", "themes-package"],
-    "version": "1.1.0",
+    "keywords": [
+        "themes",
+        "laravel",
+        "blade",
+        "theme",
+        "themes-package"
+    ],
+    "version": "1.1.3",
     "license": "MIT",
     "authors": [
         {

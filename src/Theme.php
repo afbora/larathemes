@@ -23,13 +23,13 @@ class Theme extends Collection
     /**
      * Register and set the currently active theme.
      *
-     * @param  string  $theme
+     * @param string $theme
      */
     public function set($theme)
     {
         list($theme, $parent) = $this->resolveTheme($theme);
 
-        if (! $this->isCurrently($theme->get('slug')) and (! is_null($this->getCurrent()))) {
+        if (!$this->isCurrently($theme->get('slug')) and (!is_null($this->getCurrent()))) {
             $this->removeRegisteredLocation();
         }
 
@@ -44,8 +44,8 @@ class Theme extends Collection
     /**
      * Get the path of the given theme file.
      *
-     * @param  string  $file
-     * @param  string  $theme
+     * @param string $file
+     * @param string $theme
      * @return string
      */
     public function path($file = '', $theme = null)
@@ -72,16 +72,17 @@ class Theme extends Collection
     /**
      * Set the layout property.
      *
-     * @param  string  $layout
+     * @param string $layout
      */
     public function setLayout($layout)
     {
         $this->layout = $layout;
     }
+
     /**
      * Set the current theme property.
      *
-     * @param  string  $theme
+     * @param string $theme
      */
     public function setCurrent($theme)
     {
@@ -101,7 +102,7 @@ class Theme extends Collection
     /**
      * Determine if the given theme is the currently set theme.
      *
-     * @param  string  $theme
+     * @param string $theme
      * @return bool
      */
     public function isCurrently($theme)
@@ -112,7 +113,7 @@ class Theme extends Collection
     /**
      * Format the given name as the directory basename.
      *
-     * @param  string  $name
+     * @param string $name
      * @return string
      */
     protected function format($name)
@@ -128,13 +129,13 @@ class Theme extends Collection
      */
     protected function symlinkPublicDirectory()
     {
-        if (! file_exists(public_path('themes/'.$this->getCurrent()))) {
-            if (! file_exists(public_path('themes'))) {
+        if (!file_exists(public_path('themes/' . $this->getCurrent()))) {
+            if (!file_exists(public_path('themes'))) {
                 app()->make('files')->makeDirectory(public_path('themes'));
             }
 
             app()->make('files')->link(
-                $this->path('public'), public_path('themes/'.$this->getCurrent())
+                $this->path('public'), public_path('themes/' . $this->getCurrent())
             );
         }
     }
@@ -142,7 +143,7 @@ class Theme extends Collection
     /**
      * Register the theme's service provider.
      *
-     * @param  string  $theme
+     * @param string $theme
      * @return void
      */
     protected function registerServiceProvider($theme)
@@ -153,22 +154,22 @@ class Theme extends Collection
     /**
      * Register the themes path as a PSR-4 reference.
      *
-     * @param  string  $theme
+     * @param string $theme
      * @return void
      */
     protected function registerAutoload($theme)
-	{
-        $base = 'Themes\\'.$theme.'\\';
+    {
+        $base = 'Themes\\' . $theme . '\\';
         $path = $this->path('src/');
 
-        spl_autoload_register(function($class) use ($base, $path) {
+        spl_autoload_register(function ($class) use ($base, $path) {
             $file = str_replace($base, '', $class);
             $file = str_replace('\\', '/', $file);
             $file .= '.php';
 
-            if (file_exists($path.$file)) {
-                include($path.$file);
+            if (file_exists($path . $file)) {
+                include($path . $file);
             }
         });
-	}
+    }
 }

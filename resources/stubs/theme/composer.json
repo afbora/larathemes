@@ -6,8 +6,5 @@
         "psr-4": {
             "DummyEscapedNamespace\\": "src/"
         }
-    },
-    "require": {
-        "afbora/composer": "*"
     }
 }

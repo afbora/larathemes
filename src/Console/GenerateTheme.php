@@ -39,27 +39,27 @@ class GenerateTheme extends Command
      */
     public function handle()
     {
-        $options     = $this->getOptions();
-        $root        = base_path('themes');
-        $stubsPath   = __DIR__ . '/../../resources/stubs/theme';
-        $slug        = $options['slug'];
-        $name        = $this->format($slug);
+        $options = $this->getOptions();
+        $root = base_path('themes');
+        $stubsPath = __DIR__ . '/../../resources/stubs/theme';
+        $slug = $options['slug'];
+        $name = $this->format($slug);
 
         if (File::isDirectory($root . '/' . $name)) {
             return $this->error('Theme already exists!');
         }
 
-        if (! File::isDirectory($root)) {
+        if (!File::isDirectory($root)) {
             File::makeDirectory($root);
         }
 
         foreach (File::allFiles($stubsPath) as $file) {
             $contents = $this->replacePlaceholders($file->getContents(), $options);
-            $subPath  = $file->getRelativePathname();
-            $filePath = $root.'/'.$options['name'].'/'.$subPath;
-            $dir      = dirname($filePath);
+            $subPath = $file->getRelativePathname();
+            $filePath = $root . '/' . $options['name'] . '/' . $subPath;
+            $dir = dirname($filePath);
 
-            if (! File::isDirectory($dir)) {
+            if (!File::isDirectory($dir)) {
                 File::makeDirectory($dir, 0755, true);
             }
 
@@ -74,21 +74,21 @@ class GenerateTheme extends Command
      */
     protected function getOptions()
     {
-        $slug   = Str::slug($this->argument('slug'));
-        $name   = $this->format($slug);
-        $quick  = $this->option('quick');
+        $slug = Str::slug($this->argument('slug'));
+        $name = $this->format($slug);
+        $quick = $this->option('quick');
         $vendor = config('themes.vendor');
         $author = config('themes.author');
 
         return [
-            'slug'              => $slug,
-            'namespace'         => "Themes\\$name",
+            'slug' => $slug,
+            'namespace' => "Themes\\$name",
             'escaped_namespace' => "Themes\\\\$name",
-            'name'              => $quick ? $name : $this->ask('What is your theme\'s name?', $name),
-            'author'            => $quick ? $author : $this->ask('Who is the author of your theme?', $author),
-            'version'           => $quick ? '1.0.0' : $this->ask('What is the version of your theme?', '1.0.0'),
-            'description'       => $quick ? "$name theme." : $this->ask('Can you describe your theme?', "$name theme."),
-            'package_name'      => $quick ? "{$vendor}/{$slug}" : $this->ask('What is the composer package name? [optional]', "{$vendor}/{$slug}")
+            'name' => $quick ? $name : $this->ask('What is your theme\'s name?', $name),
+            'author' => $quick ? $author : $this->ask('Who is the author of your theme?', $author),
+            'version' => $quick ? '1.0.0' : $this->ask('What is the version of your theme?', '1.0.0'),
+            'description' => $quick ? "$name theme." : $this->ask('Can you describe your theme?', "$name theme."),
+            'package_name' => $quick ? "{$vendor}/{$slug}" : $this->ask('What is the composer package name? [optional]', "{$vendor}/{$slug}")
         ];
     }
 
@@ -129,7 +129,7 @@ class GenerateTheme extends Command
     /**
      * Format the given name as the directory basename.
      *
-     * @param  string  $name
+     * @param string $name
      * @return string
      */
     private function format($name)
