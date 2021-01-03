@@ -6,7 +6,7 @@
 [![Release](https://img.shields.io/github/v/release/afbora/larathemes?style=flat-square)](https://github.com/afbora/larathemes)
 [![License](https://img.shields.io/github/license/afbora/larathemes?style=flat-square)](https://github.com/afbora/larathemes)
 
-Themes gives the means to group together a set of views and assets for Laravel. This gives an easy way to further decouple the way your web application looks from your code base.
+Themes gives the means to group together a set of views and assets for Laravel 7.x and 8.x. This gives an easy way to further decouple the way your web application looks from your code base.
 
 ## Installation
 Simply install the package through Composer. From here the package will automatically register its service provider and `Theme` facade.
