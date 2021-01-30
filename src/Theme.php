@@ -11,21 +11,22 @@ class Theme extends Collection
     use RegistersViewLocations;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $current;
 
     /**
      * @var string|null
      */
-    protected $layout = null;
+    protected $layout;
 
     /**
      * Register and set the currently active theme.
      *
      * @param string $theme
+     * @return self
      */
-    public function set($theme)
+    public function set(string $theme): self
     {
         list($theme, $parent) = $this->resolveTheme($theme);
 
@@ -39,32 +40,38 @@ class Theme extends Collection
         $this->addRegisteredLocation($theme, $parent);
         $this->symlinkPublicDirectory();
         $this->registerServiceProvider($this->format($theme->get('slug')));
+
+        return $this;
     }
 
     /**
      * Get the path of the given theme file.
      *
-     * @param string $file
-     * @param string $theme
-     * @return string
+     * @param string|null $file
+     * @param string|null $theme
+     * @return string|null
      */
-    public function path($file = '', $theme = null)
+    public function path(string $file = null, string $theme = null): ?string
     {
-        if (is_null($theme)) {
+        if (empty($theme) === true) {
             $theme = $this->getCurrent();
         }
 
-        $theme = $this->format($theme);
+        if (empty($theme) === false) {
+            $theme = $this->format($theme);
 
-        return base_path("themes/{$theme}/{$file}");
+            return base_path('Themes/' . $theme . (empty($file) === false ? '/' . $file : null));
+        }
+
+        return null;
     }
 
     /**
      * Get the layout property.
      *
-     * @return string
+     * @return string|null
      */
-    public function getLayout()
+    public function getLayout(): ?string
     {
         return $this->layout;
     }
@@ -73,10 +80,13 @@ class Theme extends Collection
      * Set the layout property.
      *
      * @param string $layout
+     * @return self
      */
-    public function setLayout($layout)
+    public function setLayout(string $layout): self
     {
         $this->layout = $layout;
+
+        return $this;
     }
 
     /**
@@ -84,9 +94,11 @@ class Theme extends Collection
      *
      * @param string $theme
      */
-    public function setCurrent($theme)
+    public function setCurrent(string $theme): self
     {
         $this->current = $theme;
+
+        return $this;
     }
 
     /**
@@ -94,7 +106,7 @@ class Theme extends Collection
      *
      * @return string
      */
-    public function getCurrent()
+    public function getCurrent(): ?string
     {
         return $this->current;
     }
@@ -105,7 +117,7 @@ class Theme extends Collection
      * @param string $theme
      * @return bool
      */
-    public function isCurrently($theme)
+    public function isCurrently(string $theme): bool
     {
         return $this->current === $theme;
     }
@@ -116,26 +128,28 @@ class Theme extends Collection
      * @param string $name
      * @return string
      */
-    protected function format($name)
+    protected function format(string $name): string
     {
         return ucfirst(Str::camel($name));
     }
 
     /**
-     * Symlink the themes public directory so its accesible
+     * Symlink the themes public directory so its accessible
      * by the web.
      *
      * @return void
      */
-    protected function symlinkPublicDirectory()
+    protected function symlinkPublicDirectory(): void
     {
-        if (!file_exists(public_path('themes/' . $this->getCurrent()))) {
-            if (!file_exists(public_path('themes'))) {
-                app()->make('files')->makeDirectory(public_path('themes'));
+        $theme = $this->format($this->getCurrent());
+
+        if (!file_exists(public_path('Themes/' . $theme))) {
+            if (!file_exists(public_path('Themes'))) {
+                app()->make('files')->makeDirectory(public_path('Themes'));
             }
 
             app()->make('files')->link(
-                $this->path('public'), public_path('themes/' . $this->getCurrent())
+                $this->path('public'), public_path('Themes/' . $theme)
             );
         }
     }
@@ -146,7 +160,7 @@ class Theme extends Collection
      * @param string $theme
      * @return void
      */
-    protected function registerServiceProvider($theme)
+    protected function registerServiceProvider(string $theme): void
     {
         app()->register("Themes\\$theme\\Providers\\ThemeServiceProvider");
     }
@@ -157,7 +171,7 @@ class Theme extends Collection
      * @param string $theme
      * @return void
      */
-    protected function registerAutoload($theme)
+    protected function registerAutoload(string $theme): void
     {
         $base = 'Themes\\' . $theme . '\\';
         $path = $this->path('src/');
@@ -165,7 +179,7 @@ class Theme extends Collection
         spl_autoload_register(function ($class) use ($base, $path) {
             $file = str_replace($base, '', $class);
             $file = str_replace('\\', '/', $file);
-            $file .= '.php';
+            $file = $file . '.php';
 
             if (file_exists($path . $file)) {
                 include($path . $file);

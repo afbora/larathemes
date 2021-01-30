@@ -64,10 +64,10 @@ class ThemesServiceProvider extends ServiceProvider
     protected function registerServices()
     {
         $this->app->singleton('afbora.larathemes', function ($app) {
-            $themes = [];
             $items = [];
+            $themes = [];
 
-            if ($path = base_path('themes')) {
+            if ($path = base_path('Themes')) {
                 if (file_exists($path) && is_dir($path)) {
                     $themes = $this->app['files']->directories($path);
                 }

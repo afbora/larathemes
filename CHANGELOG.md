@@ -4,6 +4,9 @@ All notable changes to this package will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this package adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2021-01-31
+- Breaking change: Switched `themes` directory to `Themes`
+
 ## [1.2.0] - 2021-01-03
 - PHP 8 support with drop PHP 7.2
 - Laravel 8 support with drop Laravel 6

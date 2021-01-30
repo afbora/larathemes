@@ -40,7 +40,7 @@ class GenerateTheme extends Command
     public function handle()
     {
         $options = $this->getOptions();
-        $root = base_path('themes');
+        $root = base_path('Themes');
         $stubsPath = __DIR__ . '/../../resources/stubs/theme';
         $slug = $options['slug'];
         $name = $this->format($slug);
@@ -132,7 +132,7 @@ class GenerateTheme extends Command
      * @param string $name
      * @return string
      */
-    private function format($name)
+    private function format(string $name): string
     {
         return ucfirst(Str::camel($name));
     }

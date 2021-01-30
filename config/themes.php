@@ -38,7 +38,7 @@ return [
 	| may register your themes as a composer package as well.
 	|
 	*/
-	
+
 	'vendor' => 'vendor',
 
 ];
